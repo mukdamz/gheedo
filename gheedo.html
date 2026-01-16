@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>غيدو 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@800&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Cairo',sans-serif;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(-45deg,#89f7fe,#66a6ff,#c3a6ff,#ffc3de);
+background-size:400% 400%;
+animation:bg 18s infinite;
+}
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+.page{
+display:none;
+background:rgba(0,0,0,.45);
+padding:25px;
+border-radius:18px;
+max-width:520px;
+color:#fff;
+z-index:5;
+}
+.page.active{display:block}
+
+img.main{
+width:80%;
+max-width:350px;
+border-radius:15px;
+margin:15px 0;
+}
+
+button{
+padding:12px 22px;
+background:#ff66b3;
+border:none;
+border-radius:10px;
+color:#fff;
+cursor:pointer;
+margin-top:15px;
+font-size:1em;
+}
+
+#musicBtn{
+position:fixed;
+top:10px;
+right:10px;
+z-index:20;
+padding:10px 15px;
+background:#ffcc66;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* خلفية كلمات */
+.float{
+position:absolute;
+color:white;
+opacity:.85;
+animation:floatUp linear infinite;
+pointer-events:none;
+}
+@keyframes floatUp{
+0%{transform:translateY(0);opacity:1}
+100%{transform:translateY(-140vh);opacity:0}
+}
+
+/* صفحة 3 */
+.birthday{
+background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb,#a6c1ee);
+background-size:400% 400%;
+animation:bg 10s infinite;
+}
+
+.countdown{font-size:4em}
+.nineteen{font-size:5em;display:none}
+
+/* انفجار قلوب */
+.heart{
+position:absolute;
+font-size:22px;
+animation:boom 2.5s forwards;
+}
+@keyframes boom{
+from{transform:scale(0);opacity:1}
+to{transform:scale(1.5) translate(var(--x),var(--y));opacity:0}
+}
+
+/* ألعاب نارية */
+.fire{
+position:absolute;
+font-size:28px;
+animation:fire 2.5s ease-out forwards;
+}
+@keyframes fire{
+0%{transform:scale(0);opacity:1}
+100%{transform:scale(1.6) translate(var(--x),var(--y));opacity:0}
+}
+
+/* GIFs */
+.dance{
+position:fixed;
+width:230px;
+display:none;
+animation:pulse .8s infinite alternate;
+z-index:10;
+}
+@keyframes pulse{to{transform:scale(1.08)}}
+
+.rt{right:20px;top:80px}
+.rb{right:20px;bottom:40px}
+.lb{left:20px;bottom:40px}
+</style>
+</head>
+
+<body>
+
+<!-- صفحة 1 -->
+<div class="page active" id="p1">
+<h2>احم احم مين الي خش هنا ؟؟</h2>
+<img class="main" src="https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg">
+<p>سوف نستكشف في باقي الصفحات إن كنتِ الأجمل في العالم أم لا</p>
+<button onclick="go(2)">كمل كمل</button>
+</div>
+
+<!-- صفحة 2 -->
+<div class="page" id="p2">
+<h2>✨ النتيجة ✨</h2>
+<img class="main" src="https://images.pexels.com/photos/47367/full-moon-moon-bright-sky-47367.jpeg" alt="القمر">
+<p>نعم بعد بحث عدة أيام<br>لقد وجدنا الفتاة الأجمل بالعالم</p>
+<p><b>وكان من المستحيل إلا تكوني انتي<br>هذا القمر بس انتي أحلى</b></p>
+<button onclick="go(3)">كملي يا حلوة لسه ما خلصنا</button>
+</div>
+
+<!-- صفحة 3 -->
+<div class="page birthday" id="p3">
+<div class="countdown" id="cd">3</div>
+<div class="nineteen" id="n19">19</div>
+<p style="font-size:1.3em;margin-top:10px">
+كل عام وانتي حلوة الحلوات<br>
+يا غيدو حلوتي النعنوعه
+</p>
+</div>
+
+<!-- GIFs -->
+<img class="dance rt" id="g1" src="https://media4.giphy.com/media/cROwFEvVvhNG8/giphy.gif">
+<img class="dance rb" id="g2" src="https://media0.giphy.com/media/ujTVMASREzuRbH6zy5/giphy.gif">
+<img class="dance lb" id="g3" src="https://media1.giphy.com/media/Im6d35ebkCIiGzonjI/giphy.gif">
+
+<button id="musicBtn">تشغيل الموسيقى 🎵</button>
+
+<audio id="m1" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+<audio id="m2" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3">
+</audio>
+
+<script>
+function go(n){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById('p'+n).classList.add('active');
+if(n===3){
+m1.pause();m2.play();start();
+}
+}
+
+musicBtn.onclick=()=>{m1.play();musicBtn.style.display='none'}
+
+function start(){
+let c=3;
+let i=setInterval(()=>{
+c--;cd.textContent=c;
+if(c===0){
+clearInterval(i);
+cd.style.display='none';
+n19.style.display='block';
+boom();fireworks();showG();
+}
+},1000);
+}
+
+function showG(){
+g1.style.display=g2.style.display=g3.style.display='block';
+}
+
+function boom(){
+for(let i=0;i<35;i++){
+let h=document.createElement('div');
+h.className='heart';
+h.innerHTML='💖';
+h.style.left='50%';h.style.top='50%';
+h.style.setProperty('--x',(Math.random()*400-200)+'px');
+h.style.setProperty('--y',(Math.random()*400-200)+'px');
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),2500);
+}
+}
+
+function fireworks(){
+const items=['🎆','🎇','🎂','🕯️','🎉'];
+for(let i=0;i<35;i++){
+let f=document.createElement('div');
+f.className='fire';
+f.innerHTML=items[Math.floor(Math.random()*items.length)];
+f.style.left='50%';f.style.top='50%';
+f.style.setProperty('--x',(Math.random()*500-250)+'px');
+f.style.setProperty('--y',(Math.random()*500-250)+'px');
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),2500);
+}
+}
+
+/* خلفية كلمات */
+const texts=[
+'غيدو الحلوة','مين الي صار عمره ١٩؟؟؟','مين النعنوعه الي كبرت سنة؟؟',
+'علماء العالم بحثوا لايام عن الأجمل ويقال انهم عثروا عليها !!!!','💖','19'
+];
+for(let i=0;i<120;i++){
+let t=document.createElement('div');
+t.className='float';
+t.innerHTML=texts[Math.floor(Math.random()*texts.length)];
+t.style.left=Math.random()*100+'vw';
+t.style.bottom='-20vh';
+t.style.fontSize=(14+Math.random()*18)+'px';
+t.style.animationDuration=(6+Math.random()*7)+'s';
+document.body.appendChild(t);
+}
+</script>
+
+</body>
+</html>
